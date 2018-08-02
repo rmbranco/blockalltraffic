@@ -1,0 +1,23 @@
+# Allow Teamviewer (tcp & udp port 5938)
+iptables -t filter -A OUTPUT -p tcp --dport 5938 -j ACCEPT
+iptables -t filter -A INPUT -p tcp --dport 5938 -j ACCEPT
+
+iptables -t filter -A OUTPUT -p udp --dport 5938 -j ACCEPT
+iptables -t filter -A INPUT -p udp --dport 5938 -j ACCEPT
+
+# Allow DNS
+iptables -A OUTPUT -p udp --dport 53 -j ACCEPT
+
+# Allow ADB
+iptables -A OUTPUT -p udp --dport 5555 -j ACCEPT
+iptables -A OUTPUT -p tcp --dport 5555 -j ACCEPT
+iptables -A INPUT -p udp --dport 5555 -j ACCEPT
+iptables -A INPUT -p tcp --dport 5555 -j ACCEPT
+
+#block all other udp
+iptables -A OUTPUT -p udp -j DROP
+ip6tables -A OUTPUT -p udp -j DROP
+
+#block all other tcp
+iptables -A OUTPUT -p tcp -j DROP
+ip6tables -A OUTPUT -p tcp -j DROP
